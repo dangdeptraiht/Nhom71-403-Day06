@@ -2,7 +2,7 @@
 
 
 **Nhóm:** 71
-**Nhóm:** Ngô Văn Long, Nguyễn Phương Linh, Nguyễn Hải Đăng, Nguyễn Mạnh Phú
+**Thành viên:** Ngô Văn Long, Nguyễn Phương Linh, Nguyễn Hải Đăng, Nguyễn Mạnh Phú
 **Track:** ☒ VinUni-VinSchool 
 
 ---
