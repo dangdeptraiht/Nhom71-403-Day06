@@ -1,12 +1,9 @@
-# SPEC draft — NhomXX-Lop-Day05
+# SPEC draft — Nhom71 - Lop E403 - Day06
 
-> **Nguồn tham khảo:**
-> - Template SPEC: [spec-template.md](https://github.com/VinUni-AI20k/Day06-AI-Product-Hackathon/blob/main/02-templates/spec-template.md) — repo Day06-AI-Product-Hackathon (VinUni-AI20k)
-> - Ví dụ spec-draft: [README.md Day 5](https://github.com/VinUni-AI20k/Day05-AI-Product-Design) — mục "Ví dụ bài nộp tốt"
-> - Framework 3 trụ (Requirement · Eval · UX), 4 paths, AI Product Canvas: slide lecture Day 5 — chương trình AICB-P1, VinUni 2026
 
-**Nhóm:** *(điền tên nhóm)*
-**Track:** ☐ VinFast · ☐ Vinmec · ☒ VinUni-VinSchool · ☐ XanhSM · ☐ Open
+**Nhóm:** 71
+**Nhóm:** Ngô Văn Long, Nguyễn Phương Linh, Nguyễn Hải Đăng, Nguyễn Mạnh Phú
+**Track:** ☒ VinUni-VinSchool 
 
 ---
 
@@ -26,7 +23,6 @@ Researcher và sinh viên nghiên cứu tại VinUni mất **3–5 giờ** để
 **Automation hay augmentation?** ☒ Augmentation
 Justify: Researcher luôn cần review và kiểm chứng lại kết quả AI. Cost of false positive (tóm tắt sai, trích dẫn sai) rất cao trong nghiên cứu khoa học — không thể để AI quyết định hoàn toàn. AI gợi ý, researcher duyệt và chỉnh.
 
-> *Tham khảo: framework "Automation vs Augmentation" — slide lecture Day 5, AICB-P1 VinUni.*
 
 **Learning signal:**
 1. User correction đi vào đâu? → Khi user loại bỏ paper không phù hợp hoặc chỉnh sửa summary → ghi log để cải thiện prompt / ranking.
@@ -49,7 +45,6 @@ Justify: Researcher luôn cần review và kiểm chứng lại kết quả AI. 
 | **Failure — AI sai** | User biết AI sai bằng cách nào? | AI trả paper không liên quan hoặc tóm tắt sai nội dung chính. User phát hiện khi đọc abstract gốc (luôn hiện bên cạnh summary). Mỗi summary có nút "Xem abstract gốc" để so sánh. |
 | **Correction — user sửa** | User sửa bằng cách nào? Data đi vào đâu? | User bấm "Không liên quan" hoặc chỉnh summary → correction log lưu lại → dùng để refine search ranking & prompt cho lần sau. |
 
-> *Tham khảo: framework "4 paths" (AI đúng / không chắc / sai / user sửa) — slide lecture Day 5, mục UX.*
 
 ### Feature 2: Citation checker
 
@@ -83,7 +78,6 @@ Tại sao?
 - **Search paper:** bỏ sót paper quan trọng (low recall) nguy hiểm hơn trả thừa vài paper không liên quan → ưu tiên recall.
 - **Citation check:** báo citation đúng nhưng thực tế sai (low precision) nguy hiểm hơn flag thừa → ưu tiên precision.
 
-> *Tham khảo: framework "Precision vs Recall tradeoff" — slide lecture Day 5, mục Eval.*
 
 | Metric | Threshold | Red flag (dừng khi) |
 |--------|-----------|---------------------|
@@ -101,8 +95,6 @@ Tại sao?
 | 2 | **Citation DOI không tồn tại hoặc trỏ sai paper** — LLM tạo DOI giả khi được yêu cầu trích dẫn | User trích dẫn source không có thật → bị reject khi submit | Mọi DOI được verify qua CrossRef API trước khi hiện cho user. DOI không tìm thấy → hiện cảnh báo rõ ràng, không cho export. |
 | 3 | **Plagiarism checker bỏ sót đoạn copy do paraphrase sát nghĩa** — tool chỉ so text similarity, không detect semantic copy | Bài viết bị phát hiện đạo văn bởi tool chính thức (Turnitin) | Disclaimer: "Đây là công cụ sàng lọc sơ bộ, không thay thế kiểm tra đạo văn chính thức". Dùng cả lexical + semantic similarity. |
 
-> *"Failure mode nào user KHÔNG BIẾT bị sai? Đó là cái nguy hiểm nhất." — slide lecture Day 5.*
-> *Failure mode #1 (hallucination) là nguy hiểm nhất vì user có thể tin summary mà không kiểm tra paper gốc.*
 
 ---
 
@@ -172,16 +164,5 @@ Tại sao?
 | **Đăng** | Chạy eval trên test set · Cập nhật ROI với số liệu thực từ prototype · Viết feedback cho các nhóm khác |
 | **Phú** | Gắn AI call thật vào prototype (LLM API + Semantic Scholar + CrossRef) · Dry run demo · Backup video |
 
-> *Phân công theo mô hình ví dụ trong README Day 5 — mỗi người có output rõ ràng, có thể giải thích phần mình khi demo.*
-> *Lưu ý binary gate: mỗi người cần ít nhất 1 commit trên group repo, và phải giải thích được phần mình trong demo (nếu không → 0 điểm prototype cá nhân).*
 
 ---
-
-## Nguồn tham khảo
-
-1. **SPEC template:** [spec-template.md](https://github.com/VinUni-AI20k/Day06-AI-Product-Hackathon/blob/main/02-templates/spec-template.md) — repo VinUni-AI20k/Day06-AI-Product-Hackathon
-2. **Ví dụ SPEC draft (Vinmec):** README.md Day 5 — mục "Ví dụ bài nộp tốt"
-3. **Hackathon rules & scoring:** [README.md](https://github.com/VinUni-AI20k/Day06-AI-Product-Hackathon/blob/main/README.md) — repo Day06-AI-Product-Hackathon
-4. **Framework lecture Day 5:** 3 trụ (Requirement · Eval · UX), 4 paths, AI Product Canvas, Automation vs Augmentation, Precision vs Recall, Data flywheel — chương trình AICB-P1, VinUni 2026
-5. **Semantic Scholar API:** https://api.semanticscholar.org — nguồn dữ liệu paper khoa học mở
-6. **CrossRef API:** https://www.crossref.org/documentation/ — verify DOI metadata
