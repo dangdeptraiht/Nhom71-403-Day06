@@ -32,7 +32,33 @@
 
 
 ---
+## 2. User Stories — 4 paths
 
+### Feature 1: Deep Extraction & Synthesis (CORE — 80% effort)
+
+
+**Trigger:** User nhập research question → AI search Semantic Scholar → đọc abstract từng paper → trích xuất thông tin theo tiêu chí → trả về **bảng so sánh có cấu trúc**.
+
+| Path | Câu hỏi thiết kế | Mô tả cụ thể |
+|------|-------------------|---------------|
+| **Happy — AI đúng** | User thấy gì? | Bảng so sánh 4 cột (Methodology/Model, Dataset Used, Key Findings, Limitations). Có **grounded evidence** qua `source_quote` + nút **src check** để mở link Semantic Scholar. User có thể mở abstract chi tiết của paper trong tooltip/panel. |
+| **Low-confidence — AI không chắc** | System báo "không chắc" bằng cách nào? | Backend ép rule precision-first: nếu không có thông tin rõ trong abstract thì trả `N/A`. UI hiện `N/A` dưới dạng dấu `-` trong cell (không bịa thêm nội dung). |
+| **Failure — AI sai** | User biết AI sai bằng cách nào? | Nếu extract sai, user đối chiếu nội dung bảng với `source_quote` và abstract gốc qua **src check** để phát hiện mismatch. (Hiện tại quote đang ở mức theo hàng/paper, chưa phải quote riêng cho từng cell). |
+| **Correction — user sửa** | User sửa bằng cách nào? Data đi đâu? | User click **edit** tại cell để sửa trực tiếp. Correction hiện được log qua API với: *(paper_id, field, original_value, corrected_value, timestamp)*. Dữ liệu correction được nạp lại vào prompt extraction cho các lần chạy sau (data flywheel). |
+
+### Feature 2: Claim Verification 
+
+
+**Trigger (as-built hiện tại):** API nhận **1 claim + 1 abstract** rồi trả kết quả verify. Luồng "paste đoạn review + danh sách references rồi tự map paper" chưa được implement end-to-end ở frontend.
+
+| Path | Câu hỏi thiết kế | Mô tả cụ thể |
+|------|-------------------|---------------|
+| **Happy** | Claim khớp | API `/verify` trả: `status = SUPPORTED`, kèm `evidence_quote` và `reasoning`. |
+| **Low-confidence** | Claim mơ hồ/khớp một phần | API có mức `PARTIALLY SUPPORTED` để biểu diễn bằng chứng chưa đủ mạnh hoặc khác ngữ cảnh nhẹ. |
+| **Failure** | API kết luận chưa đúng | User phải tự đối chiếu `evidence_quote` với claim; hiện chưa có UI verify chuyên dụng để bắt lỗi tự động theo danh sách references. |
+| **Correction** | User đánh dấu sai | Chưa có luồng correction riêng cho verify claim trong frontend hiện tại; mới có feedback/correction cho bảng extraction. |
+
+---
 
 ---
 
