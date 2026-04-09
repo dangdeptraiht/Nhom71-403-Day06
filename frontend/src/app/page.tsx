@@ -29,7 +29,7 @@ export default function Home() {
       >
        <div className="relative z-10 w-full flex flex-col items-center justify-center pt-20">
         <h1 className="text-4xl md:text-7xl font-bold font-mono tracking-tight text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 relative z-20">
-          AI Research Assistant
+          NEXUS AI
         </h1>
         <div className="w-full max-w-sm md:max-w-xl h-24 md:h-32 relative mt-4">
           <div className="absolute inset-x-10 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
@@ -58,10 +58,10 @@ export default function Home() {
         <div className="mt-10 relative w-full max-w-md mx-auto shadow-2xl">
           <PlaceholdersAndVanishInput
             placeholders={[
-              "Transformer models in AI...",
-              "LLMs in Healthcare...",
-              "RAG architecture trends...",
-              "Vision transformers...",
+              "Nghiên cứu về mô hình Transformer trong y tế...",
+              "Ứng dụng LLMs trong giáo dục đại học...",
+              "Xu hướng kiến trúc RAG mới nhất...",
+              "Dán đoạn văn bản để chống đạo văn...",
             ]}
             onChange={(e) => setQuery(e.target.value)}
             onSubmit={(e) => {

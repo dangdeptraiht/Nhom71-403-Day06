@@ -116,7 +116,7 @@ npm run dev
 ### Feature 1: Deep Extraction & Synthesis (CORE — 80% effort)
 
 
-**Trigger:** User nhập research question + chọn tiêu chí muốn extract (Method, Dataset size, Key result, Limitation) → AI search Semantic Scholar → đọc abstract từng paper → trích xuất thông tin theo tiêu chí → trả về **bảng so sánh có cấu trúc**.
+**Trigger:** User nhập research question → AI search Semantic Scholar → đọc abstract từng paper → trích xuất thông tin theo tiêu chí → trả về **bảng so sánh có cấu trúc**.
 
 | Path | Câu hỏi thiết kế | Mô tả cụ thể |
 |------|-------------------|---------------|

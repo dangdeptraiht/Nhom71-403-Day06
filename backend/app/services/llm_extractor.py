@@ -69,13 +69,13 @@ async def extract_dimensions_from_papers(papers_context: List[dict]) -> PaperExt
     user_feedback_context = _get_user_context()
 
     system_prompt = (
-        "You are an expert AI Research Assistant. Your task is to extract specified research dimensions "
-        "(Methodology, Datasets, Key Findings, Limitations) from the provided scientific abstracts.\n\n"
-        "STRICT RULES (Precision-First):\n"
-        "1. DO NOT HALLUCINATE. If a dimension is not explicitly mentioned, write 'N/A'.\n"
-        "2. GROUNDING: Provide exactly 1 sentence as a 'source_quote' directly copied (word-for-word) from the text to prove each extraction.\n"
-        "3. CONCISENESS: Summarize the findings into a very short phrase.\n"
-        "4. If you cannot find a direct quote for a claim, mark it as N/A.\n"
+        "Bạn là một chuyên gia Trợ lý Nghiên cứu AI. Nhiệm vụ của bạn là trích xuất các chiều nghiên cứu cụ thể "
+        "(Phương pháp, Tập dữ liệu, Kết quả chính, Hạn chế) từ các tóm tắt khoa học được cung cấp.\n\n"
+        "QUY TẮC NGHIÊM NGẶT (Ưu tiên độ chính xác):\n"
+        "1. KHÔNG ĐƯỢC BỊA ĐẶT. Nếu một thông tin không được nhắc đến rõ ràng, hãy ghi 'N/A'.\n"
+        "2. CĂN CỨ: Cung cấp chính xác 1 câu văn dưới dạng 'source_quote' được sao chép nguyên văn (từng chữ một) từ văn bản gốc để chứng minh cho thông tin chiết xuất. Giữ nguyên ngôn ngữ gốc của câu trích dẫn này.\n"
+        "3. NGÔN NGỮ: Mọi phần tóm tắt và giải thích (trừ câu trích dẫn gốc) phải được viết bằng tiếng Việt chuyên nghiệp.\n"
+        "4. SỰ SÚC TÍCH: Tóm tắt các phát hiện thành các cụm từ rất ngắn gọn.\n"
         f"{user_feedback_context}"
     )
 
@@ -117,12 +117,13 @@ async def verify_claim(claim: str, abstract: str) -> ClaimVerification:
     Kiểm tra một nhận định (claim) có khớp với Abstract bài báo hay không (Grounded Citation Checker).
     """
     system_prompt = (
-        "You are an expert scientific fact-checker. You will be given a 'claim' and a paper 'abstract'.\n"
-        "Evaluate if the claim is supported by the abstract.\n"
-        "Rules:\n"
-        "1. Categories: SUPPORTED (exact match/strong evidence), PARTIALLY SUPPORTED (some evidence but missing nuances or slightly different context), NOT SUPPORTED (no evidence or contradiction).\n"
-        "2. Precision: Distinguish between causation vs correlation, and general vs specific results.\n"
-        "3. Grounding: You MUST provide a direct quote from the abstract to support your judgment."
+        "Bạn là một chuyên gia kiểm chứng sự thật khoa học. Bạn sẽ được cung cấp một 'nhận định' (claim) và một 'tóm tắt' (abstract) bài báo.\n"
+        "Đánh giá xem nhận định đó có được hỗ trợ bởi bản tóm tắt hay không.\n"
+        "Quy tắc:\n"
+        "1. Phân loại: SUPPORTED (khớp hoàn toàn/bằng chứng mạnh), PARTIALLY SUPPORTED (có bằng chứng nhưng thiếu chi tiết hoặc ngữ cảnh hơi khác), NOT SUPPORTED (không có bằng chứng hoặc mâu thuẫn).\n"
+        "2. Độ chính xác: Phân biệt rõ ràng giữa hệ quả vs tương quan, và kết quả chung vs kết quả cụ thể.\n"
+        "3. Ngôn ngữ: Phần giải trình (reasoning) phải được viết hoàn toàn bằng tiếng Việt.\n"
+        "4. Căn cứ: Bạn BẮT BUỘC phải cung cấp một câu trích dẫn trực tiếp từ bản tóm tắt để hỗ trợ cho phán quyết của mình (giữ nguyên ngôn ngữ gốc của câu trích dẫn)."
     )
     result = await client.chat.completions.create(
         model="gpt-4o-mini",
@@ -134,3 +135,30 @@ async def verify_claim(claim: str, abstract: str) -> ClaimVerification:
         temperature=0.0
     )
     return result
+class ClaimSegment(BaseModel):
+    text: str = Field(..., description="A single factual claim or sentence from the input text.")
+    importance: str = Field(..., description="HIGH, MEDIUM, LOW - priority for verification.")
+
+class TextSegments(BaseModel):
+    segments: List[ClaimSegment]
+
+# ---- CORE PROCESSING PIPELINE ----
+async def segment_text_into_claims(text: str) -> List[ClaimSegment]:
+    """
+    Tách đoạn văn bản của người dùng thành các luận điểm nhỏ để kiểm chứng.
+    """
+    system_prompt = (
+        "Bạn là một chuyên gia ngôn ngữ học. Hãy chia văn bản được cung cấp thành các nhận định thực tế hoặc các câu riêng biệt "
+        "có thể được kiểm chứng độc lập so với tài liệu học thuật. Loại bỏ các từ đệm hoặc các cụm từ giao tiếp đơn thuần. "
+        "Đảm bảo các nhận định được giữ nguyên ý nghĩa gốc bằng tiếng Việt."
+    )
+    result = await client.chat.completions.create(
+        model="gpt-4o-mini",
+        response_model=TextSegments,
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": text}
+        ],
+        temperature=0.0
+    )
+    return result.segments

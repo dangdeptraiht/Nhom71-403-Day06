@@ -154,7 +154,7 @@ async def agent_chat(req: AgentChatRequest):
     agent = ResearchAgent(session_id=sid)
     
     return StreamingResponse(
-        agent.run_agent_loop(req.query),
+        agent.run_agent_loop(req.query, manual_mode=req.mode),
         media_type="text/event-stream",
         headers={"X-Session-ID": sid}
     )
