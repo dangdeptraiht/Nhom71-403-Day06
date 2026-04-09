@@ -74,13 +74,14 @@
 
 ---
 
+
 ## Phân công nhóm (4 thành viên)
 
 | Thành viên | Role | Phần phụ trách | Output |
 |-----------|------|---------------|--------|
 | **Ngô Văn Long** | Product Owner | Canvas + Failure modes + Mini AI spec (phần 1, 4, 6). Review SPEC tổng. Quyết định scope. | `spec-final.md` phần 1, 4, 6 |
-| **Nguyễn Phương Linh** | UX Designer | User Stories 4 paths × 2 features (phần 2). UI bảng extract + claim verify. Poster demo. | `spec-final.md` phần 2. UI prototype. `demo-slides.pdf` |
+| **Nguyễn Phương Linh** | Engineer | Prototype build + Prompt engineering (extraction + claim verify). API integration. Demo. | Prototype code. `prompt-tests.md`. Demo script. |
+| **Nguyễn Mạnh Phú** | UX Designer | User Stories 4 paths × 2 features (phần 2). UI bảng extract + claim verify. | `spec-final.md` phần 2. UI prototype. `demo-slides.pdf` |
 | **Nguyễn Hải Đăng** | Analyst | Eval metrics + ROI + Kill criteria (phần 3, 5). Test set. Cost estimate. Feedback nhóm khác. | `spec-final.md` phần 3, 5. Test data. `feedback.md` |
-| **Nguyễn Mạnh Phú** | Engineer | Prototype build + Prompt engineering (extraction + claim verify). API integration. Demo. | Prototype code. `prompt-tests.md`. Demo script. |
 
 ---
