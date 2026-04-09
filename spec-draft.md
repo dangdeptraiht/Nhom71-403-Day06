@@ -135,14 +135,16 @@ Tại sao?
 
 ---
 
+
 ## Phân công nhóm (4 thành viên)
 
-| Thành viên | Role | Phần phụ trách | Output cụ thể |
-|-----------|------|---------------|----------------|
-| **Ngô Văn Long** | Product Owner + AI Architect | Canvas (phần 1) + Failure modes (phần 4) + Mini AI spec (phần 6) | `spec-draft.md` phần 1, 4, 6 · Thiết kế pipeline tổng thể (search → summarize → cite check → plagiarism) · Quyết định auto/aug cho từng bước |
-| **Nguyễn Phương Linh** | UX Designer + User Stories | User Stories 4 paths cho 3 features (phần 2) + Sketch UI flow (as-is → to-be) | `spec-draft.md` phần 2 · Sketch giấy/Figma UI 3 tab · Thiết kế UX cho low-confidence và failure path (hiện warning, so sánh source gốc) |
-| **Nguyễn Hải Đăng** | Analyst + Evaluator | Eval metrics + threshold (phần 3) + ROI 3 kịch bản (phần 5) + Kill criteria | `spec-draft.md` phần 3, 5 · Xây test set 50 query để đo Recall@10 · Tính cost estimate (Semantic Scholar API + LLM API + CrossRef) |
-| **Nguyễn Mạnh Phú** | Engineer + Prompt Engineer | Prototype research + build + Prompt engineering + Demo prep | Prototype code (HTML/React) · Prompt test log (`prompt-tests.md`) · Tích hợp Semantic Scholar API + CrossRef API · Demo script 2 phút |
+| Thành viên | Role | Phần phụ trách | Output |
+|-----------|------|---------------|--------|
+| **Ngô Văn Long** | Product Owner | Canvas + Failure modes + Mini AI spec (phần 1, 4, 6). Review SPEC tổng. Quyết định scope. | `spec-final.md` phần 1, 4, 6 |
+| **Nguyễn Phương Linh** | Engineer | Prototype build + Prompt engineering (extraction + claim verify). API integration. Demo. | Prototype code. `prompt-tests.md`. Demo script. |
+| **Nguyễn Mạnh Phú** | UX Designer | User Stories 4 paths × 2 features (phần 2). UI bảng extract + claim verify. | `spec-final.md` phần 2. UI prototype. `demo-slides.pdf` |
+| **Nguyễn Hải Đăng** | Analyst | Eval metrics + ROI + Kill criteria (phần 3, 5). Test set. Cost estimate. Feedback nhóm khác. | `spec-final.md` phần 3, 5. Test data. `feedback.md` |
+---
 
 ### Chi tiết công việc theo timeline
 
