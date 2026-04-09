@@ -1,4 +1,4 @@
-# SPEC — ScholarAI v2: Deep Extraction & Claim Verification
+# SPEC — Nexus AI: Research Assistant 
 
 **Nhóm:** Nhom71-LopE403
 **Track:** ☒ VinUni-VinSchool
