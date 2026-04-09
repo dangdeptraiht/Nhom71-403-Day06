@@ -1,7 +1,7 @@
-# Prototype — ScholarAI v2: AI Research Nexus
+# Prototype — Nexus : AI Research Assistant
 
 ## Mô tả
-Web app hỗ trợ researcher VinUni tự động quét và trích xuất thông tin từ papers trên Semantic Scholar thành bảng so sánh có cấu trúc (Method / Dataset / Result / Limitation), kèm grounded citation cho từng cell. Ngoài ra hỗ trợ kiểm tra chéo trích dẫn trong bài viết với nội dung paper gốc (SUPPORTED / PARTIALLY SUPPORTED / NOT SUPPORTED), giúp giảm rủi ro trích dẫn sai ngữ cảnh.
+Web app hỗ trợ researcher tự động quét và trích xuất thông tin từ papers trên Semantic Scholar thành bảng so sánh có cấu trúc (Method / Dataset / Result / Limitation), kèm grounded citation cho từng cell. Ngoài ra hỗ trợ kiểm tra chéo trích dẫn trong bài viết với nội dung paper gốc (SUPPORTED / PARTIALLY SUPPORTED / NOT SUPPORTED), giúp giảm rủi ro trích dẫn sai ngữ cảnh.
 
 ## Level: Working Prototype
 - Backend API hoạt động đầy đủ với Autonomous ReAct Agent (Intent routing → Search → Extract → Stream)
@@ -32,6 +32,6 @@ Web app hỗ trợ researcher VinUni tự động quét và trích xuất thông
 | Thành viên | Phần | Output |
 |-----------|------|--------|
 | **Ngô Văn Long** | Product Owner — AI Product Canvas, Failure modes, Mini AI spec, review SPEC tổng, quyết định scope | `spec-final.md` phần 1, 4, 6 |
-| **Nguyễn Phương Linh** | UX Designer — User Stories 4 paths × 2 features, UI bảng extract + claim verify, poster demo | `spec-final.md` phần 2, UI prototype, `demo-slides.pdf` |
+| **Nguyễn Mạnh Phú** | UX Designer — User Stories 4 paths × 2 features, UI bảng extract + claim verify | `spec-final.md` phần 2, UI prototype, `demo-slides.pdf` |
 | **Nguyễn Hải Đăng** | Analyst — Eval metrics, ROI 3 kịch bản, Kill criteria, test set, cost estimate | `spec-final.md` phần 3, 5, test data, `feedback.md` |
-| **Nguyễn Mạnh Phú** | Engineer — Prototype build (backend + frontend), prompt engineering, API integration, demo script | Toàn bộ code, `prompt-test.md`, demo script |
+| **Nguyễn Phương Linh** | Engineer — Prototype build (backend + frontend), prompt engineering, API integration, demo script | Toàn bộ code, `prompt-test.md`, demo script |
