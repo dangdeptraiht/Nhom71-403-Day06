@@ -115,7 +115,7 @@
 
 ## 6. Mini AI spec
 
-### ScholarAI v2 — Deep Extraction & Claim Verification
+### Nexus - AI Research Assistant 
 
 **Giải gì:** Researcher chỉ đọc sâu ~20 papers/review, bỏ sót công trình quan trọng và trích dẫn sai ngữ cảnh. ScholarAI mở rộng phễu quét lên 100 papers bằng AI, extract thông tin có cấu trúc, và verify trích dẫn.
 
