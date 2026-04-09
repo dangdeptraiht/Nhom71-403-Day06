@@ -59,7 +59,26 @@
 | **Correction** | User đánh dấu sai | Chưa có luồng correction riêng cho verify claim trong frontend hiện tại; mới có feedback/correction cho bảng extraction. |
 
 ---
+## 3. Eval metrics + threshold
 
+
+| Feature | Ưu tiên | Tại sao? |
+|---------|---------|----------|
+| Deep Extraction |  **Precision** | Extract sai info làm cho researcher so sánh sai, việc này nguy hiểm hơn bỏ sót 
+| Claim Verification |  **Precision** | Nói "supported" khi thực tế không khớp → user trích dẫn sai → integrity issue |
+
+| Metric | Mô tả | Threshold | Red flag |
+|--------|-------|-----------|----------|
+| **Extraction accuracy** | % cell có câu trích dẫn đúng từ abstract| ≥ 70% | < 60% |
+| **Faithfulness** (grounded) | % cell có trích dẫn câu gốc chính xác (câu gốc thật sự support nội dung cell) | ≥ 80% | < 65%  |
+| **Claim verify precision** | % AI phân loại đúng (SUPPORTED / PARTIALLY / NOT SUPPORTED) | ≥ 80% | < 60%  |
+| **Time-to-value** | Thời gian từ nhập query đến thấy bảng extract hoàn chỉnh | ≤ 30 giây | > 2 phút |
+
+**Cách đo:**
+- Extraction accuracy: 2 người đọc 10–15 papers, so sánh từng cell AI extract với abstract gốc để tính % đúng
+- Faithfulness: kiểm tra câu trích dẫn có nằm trong abstract và support nội dung cell không
+- Claim verify: khoảng 30 claims (đúng + sai + tricky), so sánh output AI với ground truth để tính % đúng
+- Time-to-value: đo thời gian từ bấm search → bảng hiển thị xong (test 3–5 lần, lấy trung bình)
 ---
 
 
@@ -74,6 +93,22 @@
 | 3 | **Claim verification nhầm "correlation" với "causation"** — AI nói claim supported nhưng mức độ support khác nhau | User viết "X causes Y [1]" nhưng paper [1] chỉ nói "X correlates with Y" | User trích dẫn sai mức độ → peer reviewer bắt lỗi logic | ⚠️ **Khó biết** — cả hai nghe giống nhau | AI output 3 mức: **SUPPORTED / PARTIALLY SUPPORTED / NOT SUPPORTED**. Kèm trích dẫn câu gốc + highlight khác biệt. Prompt: *"Distinguish between: claims of causation vs correlation, direct evidence vs indirect inference."* |
 
 ---
+## 5. ROI 3 kịch bản
+
+|  | Conservative | Realistic | Optimistic |
+|---|-------------|-----------|------------|
+| **Assumption** | 50 researcher (1 lab), 5 query/tháng. Chỉ Feature 1 (extract bảng). CTR 30%. | 300 researcher + SV, 10 query/tháng. Cả 2 features. CTR 45%. | 1000+ user (VinUni + đối tác), 20 query/tháng. RAG full-text. CTR 60%. |
+| **Cost** | ~$15/tháng (LLM API, abstract only). Hosting: $0. | ~$200/tháng (LLM + cloud). | ~$2,000/tháng (LLM full-text: token cost x10–x50, vector storage, hosting). |
+| **Benefit** | Researcher quét 100 papers thay vì 20 → tìm thêm ~3 papers quan trọng/review. Tiết kiệm ~1.5h/review × 50 = **75 giờ/tháng**. | Tiết kiệm ~2h/review × 300 = **600 giờ/tháng**. Giảm lỗi trích dẫn sai ngữ cảnh ~30%. | **2,500 giờ/tháng**. Giảm lỗi citation 50%. Tăng publication quality. |
+| **Net** | +$360/tháng (nhỏ, prove concept) | +$2,800/tháng (justify tiếp) | +$10,500/tháng (scale SaaS) |
+
+
+**Kill criteria:**
+1. Cost > benefit 2 tháng liên tục
+2. Extraction accuracy < 70% sau 3 vòng prompt iteration
+3. < 20% user quay lại lần 2
+4. **Time-to-value > 2 phút → Kill/Pivot ngay** (user không chờ được)
+5. CTR < 25% sau 1 tháng (bảng extract không hữu ích)
 
 
 ---
